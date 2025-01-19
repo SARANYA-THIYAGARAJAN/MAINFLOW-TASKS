@@ -1,0 +1,17 @@
+#Task 1: Identify Top Students by Total Scores
+select Name,(mathscore+sciencescore+englishscore) as total_marks from students order by total_marks desc  limit 5;
+#Task 2: Calculate Averages Based on Specific Conditions
+# Example 1: Calculate the average score of students who scored above 70 in Math.
+SELECT AVG(MathScore) AS AverageMathScore,AVG(ScienceScore) AS AverageScienceScore,AVG(EnglishScore) AS AverageEnglishScore FROM Students
+WHERE MathScore > 70;
+SELECT AVG(MathScore) AS AverageMathScore
+FROM Students
+WHERE MathScore > 70;
+#Example 2: Calculate the average total score of students grouped by a specific condition, such as a score range (e.g., students scoring 200–250 in total).
+with total_scores as (select name,(mathscore+englishscore+sciencescore)as total_marks from students )
+select avg(total_marks) from total_scores where total_marks between 200 and 250;
+#Task 3: Find Second-Highest Math Scores
+select max(mathscore) as second_highest from students where MathScore < (select max(MathScore)from students);
+
+# top performer in maths
+select Name,mathscore as top_mark_in_maths from  students where mathscore=(select max(mathscore) from students);
